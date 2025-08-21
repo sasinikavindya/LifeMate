@@ -74,7 +74,7 @@ public class water extends AppCompatActivity {
             } else if (itemId == R.id.nav_add) {
                 return true; // We're already in water activity
             } else if (itemId == R.id.nav_profile) {
-                startActivity(new Intent(water.this, profile.class));
+                startActivity(new Intent(water.this, setting.class));
                 finish();
                 return true;
             }

@@ -173,7 +173,7 @@
 
     <!-- Navigation Bar -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNav"
+        android:id="@+id/bottomNavigation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="#30FFFFFF"

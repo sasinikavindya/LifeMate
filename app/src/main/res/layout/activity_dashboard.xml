@@ -145,11 +145,14 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
+    <!-- Row 3: Sleep (centered) -->
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardWater"
         android:layout_width="0dp"
         android:layout_height="120dp"
         android:layout_margin="12dp"
+        android:layout_marginTop="12dp"
         app:cardBackgroundColor="#6A4ED1"
         app:cardCornerRadius="24dp"
         app:cardElevation="4dp"
@@ -181,16 +184,17 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- Row 3: Sleep (centered) -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardSleep"
         android:layout_width="0dp"
         android:layout_height="120dp"
         android:layout_margin="12dp"
+        android:layout_marginTop="12dp"
         app:cardBackgroundColor="#6A4ED1"
         app:cardCornerRadius="24dp"
         app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cardSteps"
         app:layout_constraintWidth_percent="0.45">
@@ -212,6 +216,44 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="Sleep"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardlocationFind"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:layout_margin="12dp"
+        android:layout_marginTop="12dp"
+        app:cardBackgroundColor="#6A4ED1"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardWater"
+        app:layout_constraintWidth_percent="0.45">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_location"
+                app:tint="@android:color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Find Location"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />

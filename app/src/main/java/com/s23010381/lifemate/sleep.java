@@ -83,7 +83,7 @@ public class sleep extends AppCompatActivity {
             } else if (itemId == R.id.nav_add) {
                 return true; // Already in sleep activity
             } else if (itemId == R.id.nav_profile) {
-                startActivity(new Intent(sleep.this, profile.class));
+                startActivity(new Intent(sleep.this, setting.class));
                 finish();
                 return true;
             }

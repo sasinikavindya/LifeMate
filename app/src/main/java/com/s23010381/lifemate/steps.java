@@ -1,9 +1,11 @@
 package com.s23010381.lifemate;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -13,13 +15,17 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.button.MaterialButton;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-
-import androidx.appcompat.app.AppCompatActivity;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.button.MaterialButton;
 
 public class steps extends AppCompatActivity implements SensorEventListener {
     private SensorManager sensorManager;
@@ -32,6 +38,8 @@ public class steps extends AppCompatActivity implements SensorEventListener {
     private MediaPlayer mediaPlayer;
     private BottomNavigationView bottomNav;
     private float initialStepCount = -1;
+
+    private static final int PERMISSION_REQUEST_ACTIVITY_RECOGNITION = 1001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +57,16 @@ public class steps extends AppCompatActivity implements SensorEventListener {
         // Initialize MediaPlayer for alert sound
         mediaPlayer = MediaPlayer.create(this, R.raw.step_sound);
 
-        // Initialize SensorManager and Sensor
-        initializeSensor();
+        // Request runtime permission for Activity Recognition
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACTIVITY_RECOGNITION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACTIVITY_RECOGNITION},
+                    PERMISSION_REQUEST_ACTIVITY_RECOGNITION);
+        } else {
+            initializeSensor();
+        }
 
         // Set up button click listener
         btnStart.setOnClickListener(v -> toggleStepCounting());
@@ -91,7 +107,7 @@ public class steps extends AppCompatActivity implements SensorEventListener {
                 btnStart.setText("Stop Counting");
                 btnStart.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
                 sensorManager.registerListener(this, stepCounterSensor,
-                        SensorManager.SENSOR_DELAY_NORMAL);
+                        SensorManager.SENSOR_DELAY_UI);
                 Toast.makeText(this, "Step counting started!", Toast.LENGTH_SHORT).show();
             }
         } else {
@@ -143,7 +159,7 @@ public class steps extends AppCompatActivity implements SensorEventListener {
             } else if (itemId == R.id.nav_add) {
                 return true;
             } else if (itemId == R.id.nav_profile) {
-                startActivity(new Intent(steps.this, profile.class));
+                startActivity(new Intent(steps.this, setting.class));
                 finish();
                 return true;
             }
@@ -189,7 +205,7 @@ public class steps extends AppCompatActivity implements SensorEventListener {
         super.onResume();
         if (isSensorAvailable && isCountingSteps) {
             sensorManager.registerListener(this, stepCounterSensor,
-                    SensorManager.SENSOR_DELAY_NORMAL);
+                    SensorManager.SENSOR_DELAY_UI);
         }
     }
 
@@ -210,6 +226,21 @@ public class steps extends AppCompatActivity implements SensorEventListener {
         if (mediaPlayer != null) {
             mediaPlayer.release();
             mediaPlayer = null;
+        }
+    }
+
+    // Handle runtime permission result
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_REQUEST_ACTIVITY_RECOGNITION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Permission granted! You can now track steps.", Toast.LENGTH_SHORT).show();
+                initializeSensor();
+            } else {
+                Toast.makeText(this, "Permission denied. Step counter won't work.", Toast.LENGTH_LONG).show();
+                btnStart.setEnabled(false);
+            }
         }
     }
 }

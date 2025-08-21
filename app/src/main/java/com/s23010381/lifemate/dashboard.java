@@ -19,6 +19,7 @@ public class dashboard extends AppCompatActivity {
         CardView cardSteps = findViewById(R.id.cardSteps);
         CardView cardWater = findViewById(R.id.cardWater);
         CardView cardSleep = findViewById(R.id.cardSleep);
+        CardView cardLocation = findViewById(R.id.cardlocationFind);
 
         // Progress card click listener
         cardProgress.setOnClickListener(v -> {
@@ -50,6 +51,12 @@ public class dashboard extends AppCompatActivity {
             startActivity(intent);
         });
 
+        // Location card click listener
+        cardLocation.setOnClickListener(v -> {
+            Intent intent = new Intent(dashboard.this, locationFind.class);
+            startActivity(intent);
+        });
+
         // Bottom navigation
         BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
         bottomNav.setSelectedItemId(R.id.nav_home);
@@ -61,7 +68,7 @@ public class dashboard extends AppCompatActivity {
                 startActivity(new Intent(dashboard.this, progress.class));
                 return true;
             } else if (item.getItemId() == R.id.nav_profile) {
-                startActivity(new Intent(dashboard.this, profile.class));
+                startActivity(new Intent(dashboard.this, setting.class));
                 return true;
             }
             return false;
