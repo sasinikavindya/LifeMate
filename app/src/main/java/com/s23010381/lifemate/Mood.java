@@ -73,6 +73,7 @@ public class Mood extends AppCompatActivity {
                 finish();
                 return true;
             } else if (itemId == R.id.nav_add) {
+                startActivity(new Intent(Mood.this, progress.class));
                 return true; // Already in mood activity
             } else if (itemId == R.id.nav_profile) {
                 startActivity(new Intent(Mood.this, setting.class));

@@ -86,6 +86,7 @@ public class locationFind extends AppCompatActivity implements OnMapReadyCallbac
                 finish();
                 return true;
             } else if (itemId == R.id.nav_add) {
+                startActivity(new Intent(locationFind.this, progress.class));
                 return true; // Already in mood activity
             } else if (itemId == R.id.nav_profile) {
                 startActivity(new Intent(locationFind.this, setting.class));

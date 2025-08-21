@@ -157,6 +157,7 @@ public class steps extends AppCompatActivity implements SensorEventListener {
                 finish();
                 return true;
             } else if (itemId == R.id.nav_add) {
+                startActivity(new Intent(steps.this, progress.class));
                 return true;
             } else if (itemId == R.id.nav_profile) {
                 startActivity(new Intent(steps.this, setting.class));
